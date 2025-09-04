@@ -461,6 +461,7 @@ public class StudentsForm extends javax.swing.JFrame {
                         String query = enrolled.enrollStud(studId);
                         st.executeUpdate(query);
                         System.out.println("Insert Success");
+                        
                     } catch (Exception ex){
                         System.out.println("Failed to Enroll: " + ex);
                     }
@@ -469,8 +470,7 @@ public class StudentsForm extends javax.swing.JFrame {
                 }
             } catch (Exception ex){
                 System.out.println("Failed to Enroll: " + ex);
-            }
-                
+            }      
             
         } else if (response == JOptionPane.NO_OPTION) {
             System.out.println("User clicked NO");

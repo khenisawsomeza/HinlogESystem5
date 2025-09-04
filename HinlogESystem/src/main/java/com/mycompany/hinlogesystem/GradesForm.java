@@ -17,6 +17,8 @@ public class GradesForm extends javax.swing.JFrame {
     Grades grades = new Grades();
     static String username;
     static String teachId;
+    static String subjid;
+    static String eid;
     /**
      * Creates new form GradesForm
      */
@@ -55,7 +57,8 @@ public class GradesForm extends javax.swing.JFrame {
         prefinalInput = new javax.swing.JComboBox<>();
         finalInput = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        gradesTable = new javax.swing.JTable();
+        saveButton = new javax.swing.JButton();
 
         subjectTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -144,35 +147,35 @@ public class GradesForm extends javax.swing.JFrame {
             }
         });
 
-        prelimInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
+        prelimInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
         prelimInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 prelimInputActionPerformed(evt);
             }
         });
 
-        midtermInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
+        midtermInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
         midtermInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 midtermInputActionPerformed(evt);
             }
         });
 
-        prefinalInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
+        prefinalInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
         prefinalInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 prefinalInputActionPerformed(evt);
             }
         });
 
-        finalInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
+        finalInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
         finalInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 finalInputActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        gradesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -191,7 +194,19 @@ public class GradesForm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable1);
+        gradesTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gradesTableMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(gradesTable);
+
+        saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,6 +219,7 @@ public class GradesForm extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(23, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,20 +236,23 @@ public class GradesForm extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addGap(68, 68, 68)
                                 .addComponent(jLabel7))
-                            .addComponent(studIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(103, 103, 103))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(226, 226, 226)
-                .addComponent(studNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(prelimInput, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(midtermInput, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(prefinalInput, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(finalInput, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(studIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(115, 115, 115)
+                                        .addComponent(studNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(prelimInput, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(midtermInput, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(prefinalInput, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(finalInput, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(saveButton)))
+                        .addGap(10, 10, 10))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,8 +276,9 @@ public class GradesForm extends javax.swing.JFrame {
                     .addComponent(prelimInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(midtermInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(prefinalInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(finalInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                    .addComponent(finalInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveButton))
+                .addGap(42, 42, 42)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(43, Short.MAX_VALUE))
         );
@@ -296,17 +316,86 @@ public class GradesForm extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         showSubjectList();
+        
+        prelimInput.addItem(""); 
+        midtermInput.addItem(""); 
+        prefinalInput.addItem(""); 
+        finalInput.addItem(""); 
     }//GEN-LAST:event_formWindowOpened
 
     private void gradesSubjectTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradesSubjectTableMouseClicked
         int row = gradesSubjectTable.getSelectedRow();
         
-        int subjid = Integer.parseInt(gradesSubjectTable.getValueAt(row, 0).toString());
+        subjid = gradesSubjectTable.getValueAt(row, 0).toString();
         grades.subjid = subjid;
+        showClassList(subjid);
     }//GEN-LAST:event_gradesSubjectTableMouseClicked
 
-    private void showSubjectList(){
-               
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        String prelimGrade = (String) prelimInput.getSelectedItem();
+        String midtermGrade = (String) midtermInput.getSelectedItem();
+        String prefinalGrade = (String) prefinalInput.getSelectedItem();
+        String finalGrade = (String) finalInput.getSelectedItem();
+
+        HinlogESystem system = new HinlogESystem();
+        system.DBConnect();
+
+        try {
+            // check if the grade record already exists for this eid
+            String checkQuery = "SELECT COUNT(*) FROM grades WHERE eid = '" + eid + "'";
+            ResultSet rs = system.st.executeQuery(checkQuery);
+            rs.next();
+            int count = rs.getInt(1);
+
+            if (count > 0) {
+                grades.updateRecord(prelimGrade, midtermGrade, prefinalGrade, finalGrade, eid);
+            } else {
+                grades.saveRecord(prelimGrade, midtermGrade, prefinalGrade, finalGrade, eid);
+            }
+        } catch (Exception ex) {
+            System.out.println("Failed to Save/Update: " + ex);
+        }
+        showClassList(subjid);
+    }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void gradesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradesTableMouseClicked
+         int row = gradesTable.getSelectedRow(); // Get clicked row index
+        
+        // Get values from the table
+        String studID = gradesTable.getValueAt(row, 0).toString();
+        String studName = gradesTable.getValueAt(row, 1).toString();
+        String prelimText = gradesTable.getValueAt(row, 2).toString();
+        String midtermText = gradesTable.getValueAt(row, 3).toString();
+        String prefinalText = gradesTable.getValueAt(row, 4).toString();
+        String finalText = gradesTable.getValueAt(row, 5).toString();
+        
+        studIdInput.setText(studID);
+        studNameInput.setText(studName);
+        prelimInput.setSelectedItem(prelimText);
+        midtermInput.setSelectedItem(midtermText);
+        prefinalInput.setSelectedItem(prefinalText);
+        finalInput.setSelectedItem(finalText);
+
+        HinlogESystem system = new HinlogESystem();
+        system.DBConnect();
+
+        try {
+            String query = String.format(
+                "SELECT eID FROM Enroll WHERE studID = %s AND subjID = %s",
+                studID, subjid
+            );
+            ResultSet rs = system.st.executeQuery(query);
+            if (rs.next()) {
+                eid = rs.getString("eID"); // Save it for later use
+                System.out.println("eID selected: " + eid);
+            }
+            rs.close();
+        } catch (Exception e) {
+            System.out.println("Failed to get eID: " + e);
+        }       // TODO add your handling code here:
+    }//GEN-LAST:event_gradesTableMouseClicked
+
+    private void showSubjectList(){      
         DefaultTableModel tblmodel = (DefaultTableModel) gradesSubjectTable.getModel();
         tblmodel.setRowCount(0);
         HinlogESystem system = new HinlogESystem();
@@ -341,6 +430,45 @@ public class GradesForm extends javax.swing.JFrame {
         
     }
     
+    private void showClassList(String subjID) {
+        DefaultTableModel tblmodel = (DefaultTableModel) gradesTable.getModel();
+        tblmodel.setRowCount(0);
+
+        HinlogESystem system = new HinlogESystem();
+        system.DBConnect();
+
+        try {
+            String query = String.format(
+                "SELECT s.studID, s.studName, g.Prelim, g.Midterm, g.Prefinal, g.Final " +
+                "FROM Enroll e " +
+                "JOIN Students s ON e.studID = s.studID " +
+                "LEFT JOIN Grades g ON e.eID = g.eID " +
+                "WHERE e.subjID = %s", subjID
+            );
+            ResultSet rs = system.st.executeQuery(query);
+
+            while (rs.next()) {
+                String studID = rs.getString("studID");
+                String studName = rs.getString("studName");
+                String prelim = rs.getString("Prelim");
+                String midterm = rs.getString("Midterm");
+                String prefinal = rs.getString("Prefinal");
+                String fin = rs.getString("Final");
+
+                // Handle NULL values (in case grades not entered yet)
+                if (prelim == null) prelim = "";
+                if (midterm == null) midterm = "";
+                if (prefinal == null) prefinal = "";
+                if (fin == null) fin = "";
+
+                String[] info = {studID, studName, prelim, midterm, prefinal, fin};
+                tblmodel.addRow(info);
+            }
+            rs.close();
+        } catch (Exception exe) {
+            System.out.println("failed to get class list: " + exe);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -379,6 +507,7 @@ public class GradesForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> finalInput;
     private javax.swing.JTable gradesSubjectTable;
+    private javax.swing.JTable gradesTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -389,11 +518,11 @@ public class GradesForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox<String> midtermInput;
     private javax.swing.JComboBox<String> prefinalInput;
     private javax.swing.JComboBox<String> prelimInput;
+    private javax.swing.JButton saveButton;
     private javax.swing.JTextField studIdInput;
     private javax.swing.JTextField studNameInput;
     private javax.swing.JTable subjectTable;

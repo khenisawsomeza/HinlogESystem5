@@ -12,7 +12,7 @@ package com.mycompany.hinlogesystem;
  */
 public class Grades extends HinlogESystem{
     
-    static int subjid;
+    static String subjid;
     
     public Grades(){
         connectDB();
@@ -22,8 +22,27 @@ public class Grades extends HinlogESystem{
        DBConnect();
     }
     
-    public void saveRecord(String eid){
-        
+    public void saveRecord(String prelimGrade, String midtermGrade, String prefinalGrade, String finalGrade, String eid){
+        try {
+        String insertQuery = "INSERT INTO grades " +
+                    "(eid, Prelim, Midterm, Prefinal, Final) VALUES " +
+                    "('" + eid + "', '" + prelimGrade + "', '" + midtermGrade + "', '" +  prefinalGrade + "', '" + finalGrade + "')";
+            st.executeUpdate(insertQuery);
+            System.out.println("Insert Success");
+        } catch(Exception ex){
+            System.out.println("Failed to Insert Grades");
+        }
+    }
+    
+    public void updateRecord(String prelimGrade, String midtermGrade, String prefinalGrade, String finalGrade, String eid){
+        try {
+            String updateGradeQuery = String.format("UPDATE Grades SET Prelim = '%s', Midterm = '%s', Prefinal = '%s', Final = '%s'"
+                                                  + "WHERE eID = %s", prelimGrade, midtermGrade, prefinalGrade, finalGrade, eid);
+            st.executeUpdate(updateGradeQuery);
+            System.out.println("Update Success");
+        } catch(Exception ex){
+            System.out.println("Failed to Update Grades");
+        }
     }
     
 }
