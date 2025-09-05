@@ -59,6 +59,7 @@ public class GradesForm extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         gradesTable = new javax.swing.JTable();
         saveButton = new javax.swing.JButton();
+        databaseLabel = new javax.swing.JLabel();
 
         subjectTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -135,12 +136,14 @@ public class GradesForm extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Final");
 
+        studNameInput.setEditable(false);
         studNameInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studNameInputActionPerformed(evt);
             }
         });
 
+        studIdInput.setEditable(false);
         studIdInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studIdInputActionPerformed(evt);
@@ -208,18 +211,18 @@ public class GradesForm extends javax.swing.JFrame {
             }
         });
 
+        databaseLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        databaseLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        databaseLabel.setText("Database");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(23, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,14 +255,22 @@ public class GradesForm extends javax.swing.JFrame {
                                         .addComponent(finalInput, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addComponent(saveButton)))
-                        .addGap(10, 10, 10))))
+                        .addGap(10, 10, 10))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(databaseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(249, 249, 249))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(databaseLabel)
+                .addGap(9, 9, 9)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -280,7 +291,7 @@ public class GradesForm extends javax.swing.JFrame {
                     .addComponent(saveButton))
                 .addGap(42, 42, 42)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -321,6 +332,9 @@ public class GradesForm extends javax.swing.JFrame {
         midtermInput.addItem(""); 
         prefinalInput.addItem(""); 
         finalInput.addItem(""); 
+        
+        HinlogESystem system = new HinlogESystem();
+        databaseLabel.setText(system.db);
     }//GEN-LAST:event_formWindowOpened
 
     private void gradesSubjectTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gradesSubjectTableMouseClicked
@@ -505,6 +519,7 @@ public class GradesForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel databaseLabel;
     private javax.swing.JComboBox<String> finalInput;
     private javax.swing.JTable gradesSubjectTable;
     private javax.swing.JTable gradesTable;
