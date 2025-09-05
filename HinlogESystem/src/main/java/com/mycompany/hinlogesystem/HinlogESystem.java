@@ -28,7 +28,7 @@ public class HinlogESystem {
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+db+"?zeroDateTimeBehavior=CONVERT_TO_NULL", uname, pswd);
+            con = DriverManager.getConnection("jdbc:mysql://10.4.44.83:3306/"+db+"?zeroDateTimeBehavior=CONVERT_TO_NULL", uname, pswd);
             st = con.createStatement();
             System.out.println("Connected: " + db);
         } catch (Exception ex){
@@ -41,7 +41,7 @@ public class HinlogESystem {
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+db+"?zeroDateTimeBehavior=CONVERT_TO_NULL", uname, pswd);
+            con = DriverManager.getConnection("jdbc:mysql://10.4.44.83:3306/"+db+"?zeroDateTimeBehavior=CONVERT_TO_NULL", uname, pswd);
             st = con.createStatement();
             JOptionPane.showMessageDialog(null,"Database Switched: " + db, "New Database", JOptionPane.INFORMATION_MESSAGE);
         } catch(Exception ex){

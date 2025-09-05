@@ -150,28 +150,28 @@ public class GradesForm extends javax.swing.JFrame {
             }
         });
 
-        prelimInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
+        prelimInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
         prelimInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 prelimInputActionPerformed(evt);
             }
         });
 
-        midtermInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
+        midtermInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
         midtermInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 midtermInputActionPerformed(evt);
             }
         });
 
-        prefinalInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
+        prefinalInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
         prefinalInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 prefinalInputActionPerformed(evt);
             }
         });
 
-        finalInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
+        finalInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B+", "B", "C+", "C", "D", "F", "FD" }));
         finalInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 finalInputActionPerformed(evt);
@@ -333,6 +333,11 @@ public class GradesForm extends javax.swing.JFrame {
         prefinalInput.addItem(""); 
         finalInput.addItem(""); 
         
+        prelimInput.setSelectedItem(""); 
+        midtermInput.setSelectedItem(""); 
+        prefinalInput.setSelectedItem(""); 
+        finalInput.setSelectedItem(""); 
+        
         HinlogESystem system = new HinlogESystem();
         databaseLabel.setText(system.db);
     }//GEN-LAST:event_formWindowOpened
@@ -356,7 +361,7 @@ public class GradesForm extends javax.swing.JFrame {
 
         try {
             // check if the grade record already exists for this eid
-            String checkQuery = "SELECT COUNT(*) FROM grades WHERE eid = '" + eid + "'";
+            String checkQuery = "SELECT COUNT(*) FROM Grades WHERE eid = '" + eid + "'";
             ResultSet rs = system.st.executeQuery(checkQuery);
             rs.next();
             int count = rs.getInt(1);
@@ -455,7 +460,7 @@ public class GradesForm extends javax.swing.JFrame {
             String query = String.format(
                 "SELECT s.studID, s.studName, g.Prelim, g.Midterm, g.Prefinal, g.Final " +
                 "FROM Enroll e " +
-                "JOIN Students s ON e.studID = s.studID " +
+                "JOIN students s ON e.studID = s.studID " +
                 "LEFT JOIN Grades g ON e.eID = g.eID " +
                 "WHERE e.subjID = %s", subjID
             );
