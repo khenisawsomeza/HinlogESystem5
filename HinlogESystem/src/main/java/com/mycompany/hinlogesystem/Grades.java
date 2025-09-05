@@ -24,7 +24,7 @@ public class Grades extends HinlogESystem{
     
     public void saveRecord(String prelimGrade, String midtermGrade, String prefinalGrade, String finalGrade, String eid){
         try {
-        String insertQuery = "INSERT INTO grades " +
+        String insertQuery = "INSERT INTO Grades " +
                     "(eid, Prelim, Midterm, Prefinal, Final) VALUES " +
                     "('" + eid + "', '" + prelimGrade + "', '" + midtermGrade + "', '" +  prefinalGrade + "', '" + finalGrade + "')";
             st.executeUpdate(insertQuery);
